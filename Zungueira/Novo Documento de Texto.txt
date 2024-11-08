@@ -1,0 +1,54 @@
+    <div class="container-fluid">
+    <section class="desp" id="home">
+        <div class="volei grid">
+            <?php if (mysqli_num_rows($sao) > 0): ?>
+                <div id="mainSlider" class="carousel slide" data-bs-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <?php
+                        $i = 0;
+                        while ($i < mysqli_num_rows($sao)) {
+                            $activeClass = ($i === 0) ? 'class="active"' : '';
+                            echo "<li data-bs-target='#mainSlider' data-bs-slide-to='$i' $activeClass></li>";
+                            $i++;
+                        }
+                        ?>
+                    </ol>
+                    <div class="carousel-inner">
+                        <?php
+                        $i = 0;
+                        while ($anime = mysqli_fetch_assoc($sao)) {
+                            $foto = $anime['noticia_foto'];
+                            $titulo = $anime['noticia_name'];
+                            $noticia = $anime['noticia_news'];
+                            $autor = $anime['noticia_autor'];
+                            $activeClass = ($i === 0) ? ' active' : '';
+
+                            echo "<div class='carousel-item$activeClass'>";
+                            echo "    <div class='d-flex'>";
+                            echo "        <div class='carousel-image'>";
+                            echo "            <img src='$foto' class='d-block w-100' alt='Centro de formação profissional TUZOLEX'/>";
+                            echo "        </div>";
+                            echo "        <div class='carousel-text'>";
+                            echo "            <h5 class='title'>$titulo</h5>";
+                            echo "            <p>$noticia</p>";
+                            echo "            <p>$autor</p>";
+                            echo "        </div>";
+                            echo "    </div>";
+                            echo "</div>";
+                            $i++;
+                        }
+                        ?>
+                    </div>
+                    <a class="carousel-control-prev" href="#mainSlider" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#mainSlider" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            <?php endif; ?>
+        </div>
+    </section>
+</div>
